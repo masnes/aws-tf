@@ -19,21 +19,63 @@ resource "aws_security_group" "apex_apartment" {
     cidr_blocks = ["73.78.216.54/32"]
   }
 
+  # NFS
+  ingress {
+    from_port   = 2049
+    to_port     = 2049
+    protocol    = "tcp"
+    cidr_blocks = ["73.78.216.54/32"]
+  }
+
+
   egress {
     from_port   = 0
     to_port     = 0
-    protocol    = "tcp"
+    protocol    = -1
     cidr_blocks = ["0.0.0.0/0"]
   }
 }
 
-resource "aws_instance" "linux_academy_playground" {
+resource "aws_security_group" "intraconnected" {
+  name        = "intraconnected"
+  description = "Allow members to connect to each other"
+
+  # NFS
+  ingress {
+    from_port   = 2049
+    to_port     = 2049
+    protocol    = "tcp"
+    self        = true
+  }
+
+  egress {
+    from_port   = 0
+    to_port     = 0
+    protocol    = -1
+    self        = true
+  }
+}
+
+
+resource "aws_instance" "linux_academy_playground_server" {
   ami             = "ami-047f9f2f5072dd073"
   instance_type   = "a1.medium"
   key_name        = "old-laptop-default"
-  security_groups = ["apex_apartment"]
+  security_groups = [aws_security_group.apex_apartment.name, aws_security_group.intraconnected.name]
 }
 
-output "conn" {
-  value = aws_instance.linux_academy_playground.public_dns
+resource "aws_instance" "linux_academy_playground_client" {
+  ami             = "ami-047f9f2f5072dd073"
+  instance_type   = "a1.medium"
+  key_name        = "old-laptop-default"
+  security_groups = [aws_security_group.apex_apartment.name, aws_security_group.intraconnected.name]
+}
+
+
+output "conn_serv" {
+  value = aws_instance.linux_academy_playground_server.public_dns
+}
+
+output "conn_cli" {
+  value = aws_instance.linux_academy_playground_client.public_dns
 }
