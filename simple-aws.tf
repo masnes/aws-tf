@@ -42,17 +42,17 @@ resource "aws_security_group" "intraconnected" {
 
   # NFS
   ingress {
-    from_port   = 2049
-    to_port     = 2049
-    protocol    = "tcp"
-    self        = true
+    from_port = 2049
+    to_port   = 2049
+    protocol  = "tcp"
+    self      = true
   }
 
   egress {
-    from_port   = 0
-    to_port     = 0
-    protocol    = -1
-    self        = true
+    from_port = 0
+    to_port   = 0
+    protocol  = -1
+    self      = true
   }
 }
 
@@ -62,20 +62,30 @@ resource "aws_instance" "linux_academy_playground_server" {
   instance_type   = "a1.medium"
   key_name        = "old-laptop-default"
   security_groups = [aws_security_group.apex_apartment.name, aws_security_group.intraconnected.name]
+
+  root_block_device {
+    encrypted = true
+  }
+
+  ebs_block_device {
+    device_name = "/dev/xvdb"
+    volume_size = 30
+    encrypted   = true
+  }
 }
 
-resource "aws_instance" "linux_academy_playground_client" {
-  ami             = "ami-047f9f2f5072dd073"
-  instance_type   = "a1.medium"
-  key_name        = "old-laptop-default"
-  security_groups = [aws_security_group.apex_apartment.name, aws_security_group.intraconnected.name]
-}
+#resource "aws_instance" "linux_academy_playground_client" {
+#  ami             = "ami-047f9f2f5072dd073"
+#  instance_type   = "a1.medium"
+#  key_name        = "old-laptop-default"
+#  security_groups = [aws_security_group.apex_apartment.name, aws_security_group.intraconnected.name]
+#}
 
 
 output "conn_serv" {
   value = aws_instance.linux_academy_playground_server.public_dns
 }
 
-output "conn_cli" {
-  value = aws_instance.linux_academy_playground_client.public_dns
-}
+#output "conn_cli" {
+#  value = aws_instance.linux_academy_playground_client.public_dns
+#}
