@@ -72,6 +72,19 @@ resource "aws_instance" "linux_academy_playground_server" {
     volume_size = 30
     encrypted   = true
   }
+
+  connection {
+    type        = "ssh"
+    user        = "ec2-user"
+    host        = "${self.public_ip}"
+    private_key = file("/home/masnes/.ssh/id_rsa")
+  }
+
+  provisioner "remote-exec" {
+    inline = [
+      "sudo yum -y install vim"
+    ]
+  }
 }
 
 #resource "aws_instance" "linux_academy_playground_client" {
