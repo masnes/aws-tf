@@ -76,7 +76,7 @@ resource "aws_instance" "linux_academy_playground_server" {
   connection {
     type        = "ssh"
     user        = "ec2-user"
-    host        = "${self.public_ip}"
+    host        = self.public_ip
     private_key = file("/home/masnes/.ssh/id_rsa")
   }
 
