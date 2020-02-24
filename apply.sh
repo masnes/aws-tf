@@ -22,7 +22,7 @@ esac
 set -x
 git pull --rebase
 git add ./terraform.tfstate ./simple-aws.tf
-git commit -m "pre terraform $cmd"
+git commit -m "pre terraform $cmd" || true
 terraform "$cmd" -auto-approve
 git add ./terraform.tfstate ./simple-aws.tf
 git commit -m "terraform $cmd run"
