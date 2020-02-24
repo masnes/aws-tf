@@ -20,18 +20,24 @@ resource "aws_security_group" "apex_apartment" {
   description = "all access needs from my apex apartment"
 
   ingress {
-    from_port   = 22
-    to_port     = 22
-    protocol    = "tcp"
-    cidr_blocks = ["73.78.216.54/32"]
+    from_port = 22
+    to_port   = 22
+    protocol  = "tcp"
+    cidr_blocks = [
+      "73.78.216.54/32",
+      "73.229.170.110/32"
+    ]
   }
 
   # NFS
   ingress {
-    from_port   = 2049
-    to_port     = 2049
-    protocol    = "tcp"
-    cidr_blocks = ["73.78.216.54/32"]
+    from_port = 2049
+    to_port   = 2049
+    protocol  = "tcp"
+    cidr_blocks = [
+      "73.78.216.54/32",
+      "73.229.170.110/32"
+    ]
   }
 
 
