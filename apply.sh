@@ -1,5 +1,5 @@
 #!/bin/bash
-set -e
+set -ex
 git pull --rebase
 git add ./terraform.tfstate ./simple-aws.tf
 git commit -m "terraform apply run"
