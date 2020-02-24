@@ -1,5 +1,5 @@
 #!/bin/bash
-set -ex
+set -e
 
 usage() {
   echo $0 "[apply|destroy]"
@@ -19,6 +19,7 @@ case $1 in
   ;;
 esac
 
+set -x
 git pull --rebase
 git add ./terraform.tfstate ./simple-aws.tf
 git commit -m "pre terraform $cmd"
