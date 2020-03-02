@@ -20,11 +20,11 @@ case $1 in
 esac
 
 set -x
-git pull --rebase
-git add ./terraform.tfstate ./simple-aws.tf
+git add terraform.tfstate simple-aws.tf
 git commit -m "pre terraform $cmd" || true
+git pull --rebase
 terraform "$cmd" -auto-approve
-git add ./terraform.tfstate ./simple-aws.tf
+git add terraform.tfstate simple-aws.tf
 git commit -m "terraform $cmd run" || true
 git pull --rebase
 git push
