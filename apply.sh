@@ -7,10 +7,10 @@ usage() {
 
 
 case $1 in
-  apply)
+  a*)
     cmd="apply"
   ;;
-  destroy)
+  d*)
     cmd="destroy"
   ;;
   *)
