@@ -29,6 +29,17 @@ resource "aws_security_group" "apex_apartment" {
     ]
   }
 
+  # Modified ssh
+  ingress {
+    from_port = 2022
+    to_port   = 2022
+    protocol  = "tcp"
+    cidr_blocks = [
+      "73.78.216.54/32",
+      "73.229.170.110/32"
+    ]
+  }
+
   # NFS
   ingress {
     from_port = 2049
