@@ -23,16 +23,20 @@ set -x
 git add terraform.tfstate simple-aws.tf
 git commit -m "pre terraform $cmd" || true
 set +e
-git stash push
+git stash push && stashed=true
 git pull --rebase
-git stash pop
+if [[ "$stashed" == true ]] ; then
+  git stash pop
+fi
 set -e
 terraform "$cmd" -auto-approve
 git add terraform.tfstate simple-aws.tf
 git commit -m "terraform $cmd run" || true
 set +e
-git stash push
+git stash push && stashed=true
 git pull --rebase
-git stash pop
+if [[ "$stashed" == true ]] ; then
+  git stash pop
+fi
 set -e
 git push
