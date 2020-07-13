@@ -97,19 +97,19 @@ resource "aws_instance" "linux_academy_playground_server" {
     encrypted   = true
   }
 
-  connection {
-    type        = "ssh"
-    user        = "ec2-user"
-    host        = self.public_ip
-    private_key = file("/home/masnes/.ssh/id_rsa")
-  }
+  #connection {
+  #  type        = "ssh"
+  #  user        = "ec2-user"
+  #  host        = self.public_ip
+  #  private_key = file("/home/masnes/.ssh/id_rsa")
+  #}
 
-  provisioner "remote-exec" {
-    inline = [
-      "echo '${aws_key_pair.old_laptop_default.public_key}' >> ~/.ssh/authorized_keys",
-      "sudo yum -y install vim"
-    ]
-  }
+  #provisioner "remote-exec" {
+  #  inline = [
+  #    "echo '${aws_key_pair.old_laptop_default.public_key}' >> ~/.ssh/authorized_keys",
+  #    "sudo yum -y install vim"
+  #  ]
+  #}
 }
 
 #resource "aws_instance" "linux_academy_playground_client" {
