@@ -64,6 +64,28 @@ resource "aws_security_group" "intraconnected" {
   name        = "intraconnected"
   description = "Allow members to connect to each other"
 
+  ingress {
+    from_port = 80
+    to_port   = 80
+    protocol  = "tcp"
+    self      = true
+  }
+
+  ingress {
+    from_port = 443
+    to_port   = 443
+    protocol  = "tcp"
+    self      = true
+  }
+
+  ingress {
+    from_port = 8000
+    to_port   = 8000
+    protocol  = "tcp"
+    self      = true
+  }
+
+
   # NFS
   ingress {
     from_port = 2049
