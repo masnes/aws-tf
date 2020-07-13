@@ -115,7 +115,7 @@ resource "aws_instance" "linux_academy_playground_server" {
 resource "aws_instance" "linux_academy_playground_client" {
   ami             = "ami-047f9f2f5072dd073"
   instance_type   = "a1.medium"
-  key_name        = "old-laptop-default"
+  key_name        = "t480-laptop-default"
   security_groups = [aws_security_group.apex_apartment.name, aws_security_group.intraconnected.name]
 }
 
