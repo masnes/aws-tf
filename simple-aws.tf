@@ -60,7 +60,7 @@ resource "aws_security_group" "apex_apartment" {
   }
 }
 
-resource "aws_security_group" "intraconnected" {
+resource "aws_security_group" "rhcsa_intraconnected" {
   name        = "intraconnected"
   description = "Allow members to connect to each other"
 
