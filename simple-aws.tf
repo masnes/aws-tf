@@ -60,8 +60,8 @@ resource "aws_security_group" "apex_apartment" {
   }
 }
 
-resource "aws_security_group" "rhcsa_intraconnected" {
-  name        = "intraconnected"
+resource "aws_security_group" "intraconnected" {
+  name        = "rhcsa_intraconnected"
   description = "Allow members to connect to each other"
 
   ingress {
